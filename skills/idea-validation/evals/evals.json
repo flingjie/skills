@@ -1,0 +1,57 @@
+{
+  "skill_name": "idea-validation",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I want to build an AI app that generates weekly meal plans based on what's currently in your fridge. You take a photo and it tells you what to cook. Do you think this is a good idea?",
+      "expected_output": "Skill should challenge assumptions — ask about current meal planning behavior, how often the user actually cooks, what they do today, whether food waste is a real pain point. Should NOT ask 'would you use this app.' Report should identify whether concrete evidence of meal planning pain exists.",
+      "files": [],
+      "assertions": [
+        {"name": "Has all required report sections", "description": "Report includes: Problem Statement, Target User, Current Solution, Pain Score, Evidence, Recommendation"},
+        {"name": "Pain score has three dimensions", "description": "Pain score table includes Frequency, Severity, and Workaround Quality, each scored 0-10"},
+        {"name": "Avoids asking 'would you use this'", "description": "Report does not contain any self-validation questions like 'would you use this' or 'do you like this idea' — it focuses on behavior"},
+        {"name": "Flags unverified assumptions", "description": "Report identifies at least 2 unverified assumptions — the prompt provides almost no concrete user behavior data"},
+        {"name": "Recommendation is clear and reasoned", "description": "Report includes a Build MVP / Continue Interviewing / Reject decision with explicit reasoning, not just a score"}
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Our 5-person dev team spends about 10 hours every week compiling monthly client reports. We manually pull data from Datadog, Stripe, Intercom, and our internal DB, then copy-paste everything into a Google Sheet template. We hired a VA to help but the accuracy was terrible so we stopped. We've looked at tools like Geckoboard but they don't support our custom DB. Is this worth building an internal tool for?",
+      "expected_output": "Strong evidence: known time cost (10 hrs/week), tried paid solution (VA), tried existing tools (Geckoboard), multi-tool pain. Pain score should be high (7+ on severity and workaround). Recommendation likely Build MVP. Report must cite concrete evidence from the prompt.",
+      "files": [],
+      "assertions": [
+        {"name": "Has all required report sections", "description": "Report includes: Problem Statement, Target User, Current Solution, Pain Score, Evidence, Recommendation"},
+        {"name": "Pain score total is 18 or higher", "description": "Given the concrete evidence (10 hrs/week, tried VA, tried existing tools, multi-source data), total pain score should be ≥ 18"},
+        {"name": "Cites concrete evidence from prompt", "description": "Report references specific facts from the prompt: 10 hours/week, 5-person team, tried VA, tried Geckoboard, 4 data sources"},
+        {"name": "Recommendation is Build MVP or Continue Interviewing", "description": "Given strong evidence, recommendation should NOT be Reject"},
+        {"name": "Strong and weak evidence are separated", "description": "Evidence section distinguishes between strong signals (tried VA, tried Geckoboard, known time cost) and weak signals"}
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "我觉得现在市面上的笔记App都太复杂了。我想做一个极简的笔记工具，只有纯文本，没有任何花哨功能。很多人跟我说他们想要一个这样的工具。你觉得靠谱吗？",
+      "expected_output": "Skill should push back on '很多人跟我说' — ask who specifically, when, what they use today. Challenge the 'better mousetrap' pattern. Ask for concrete switching behavior, not stated preference. Report should flag unverified assumptions and 'everyone says' as weak evidence.",
+      "files": [],
+      "assertions": [
+        {"name": "Has all required report sections", "description": "Report includes: Problem Statement, Target User, Current Solution, Pain Score, Evidence, Recommendation"},
+        {"name": "Challenges 'everyone says' claim", "description": "Report identifies '很多人跟我说' as weak evidence — flags it as unverified, asks who specifically and what they use today"},
+        {"name": "Identifies 'better mousetrap' pattern", "description": "Report notes that 'existing tools are too complex' is not evidence of demand — competing with established free tools is a high bar"},
+        {"name": "Flags lack of concrete user data", "description": "Report includes at least 2 unverified assumptions due to complete lack of specific user behavior data"},
+        {"name": "Recommendation is not Build MVP without caveats", "description": "If recommending Build MVP, must be accompanied by strong caveats about thin evidence; more likely Continue Interviewing or Reject"}
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "I think every SaaS company needs an AI agent that automatically writes and updates their product documentation. Documentation is always outdated everywhere, it's a universal problem. With LLMs we can finally solve it by having the agent watch code changes and update docs automatically.",
+      "expected_output": "Anti-patterns to catch: 'every company', 'universal problem', 'LLM can do it'. Should ask who specifically has this problem, what they do today, whether outdated docs cause measurable loss, why existing doc tools haven't solved this. Should push for concrete examples of when outdated docs caused real damage.",
+      "files": [],
+      "assertions": [
+        {"name": "Has all required report sections", "description": "Report includes: Problem Statement, Target User, Current Solution, Pain Score, Evidence, Recommendation"},
+        {"name": "Catches 'every company' universal claim", "description": "Report flags 'every SaaS company' and 'universal problem' as unverified assumptions — no specific users identified"},
+        {"name": "Catches 'LLM can do it' anti-pattern", "description": "Report challenges the assumption that LLMs are the unlock — asks why existing tools haven't solved this, what specifically changed"},
+        {"name": "Asks for concrete cost of outdated docs", "description": "Report notes the absence of any specific instance where outdated docs caused measurable damage (lost sales, support tickets, churn)"},
+        {"name": "Recommendation is Continue Interviewing or Reject", "description": "Given zero concrete evidence and universal/generic claims, recommendation should NOT be Build MVP without further validation"}
+      ]
+    }
+  ]
+}
