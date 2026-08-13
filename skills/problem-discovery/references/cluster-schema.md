@@ -20,6 +20,8 @@ The persistent backlog lives in `state/problem_clusters.json`. This file is the 
           "trigger": "agent gets stuck in a loop",
           "current_behavior": "manual inspection of tool calls",
           "cost": "hours of debugging time",
+          "freq_hint": "every time it loops",
+          "sev_hint": "high — blocks progress",
           "fact": "用户手动排查了几十个 tool call",
           "interpretation": "执行状态难以理解",
           "assumption": "用户需要一款调试平台"
@@ -54,6 +56,7 @@ The persistent backlog lives in `state/problem_clusters.json`. This file is the 
 - `url` — optional; omit if unknown.
 - `date` — ISO date; `unknown` if not provided.
 - `complaint` / `trigger` / `current_behavior` / `cost` — extracted fields (see signal-extraction.md).
+- `freq_hint` / `sev_hint` — optional pain hints annotated in Stage 3 Detect (frequency / severity). Omit when the text doesn't state one.
 - `fact` / `interpretation` / `assumption` — the three-way separation.
 
 ## Confidence levels

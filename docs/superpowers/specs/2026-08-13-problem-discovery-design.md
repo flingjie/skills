@@ -95,7 +95,7 @@ until `idea-validation` writes its own report.
       "confidence": "medium",
       "evidence": { "signal_count": 2, "independent_sources": 2 },
       "open_questions": ["有多少开发者同样遇到？", "是否愿意切换？", "愿意付钱吗？"],
-      "next_action": "继续挖 / 交给 idea-validation"
+      "next_action": "keep mining"
     }
   ]
 }
@@ -106,7 +106,7 @@ until `idea-validation` writes its own report.
 | Level | Condition | next_action |
 |---|---|---|
 | `weak` | 1 signal / single source | keep mining |
-| `medium` | 2–3 signals, ≥2 independent sources | light validation ok |
+| `medium` | 2–3 signals, ≥2 independent sources | keep mining |
 | `strong` | 3+ signals, ≥3 independent sources, concrete cost or frequency stated | hand off to `idea-validation` |
 
 Confidence = f(signal count, independent source count, whether concrete cost or
