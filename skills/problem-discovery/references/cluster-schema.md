@@ -61,7 +61,7 @@ The persistent backlog lives in `state/problem_clusters.json`. This file is the 
 | Level | Condition | next_action |
 |-------|-----------|-------------|
 | weak | 1 signal / single source | keep mining |
-| medium | 2–3 signals, ≥2 independent sources | light validation ok |
+| medium | 2–3 signals, ≥2 independent sources | keep mining |
 | strong | 3+ signals, ≥3 independent sources, concrete cost or frequency stated | hand off to idea-validation |
 
 Confidence is a floor, not a formula. Recompute it after every append: bump only if the new signal adds an independent source or a concrete cost/frequency that was missing.

@@ -111,7 +111,7 @@ For the affected cluster, output in the terminal:
 | Level | Condition | next_action |
 |-------|-----------|-------------|
 | weak | 1 signal / single source | keep mining |
-| medium | 2–3 signals, ≥2 independent sources | light validation ok |
+| medium | 2–3 signals, ≥2 independent sources | keep mining |
 | strong | 3+ signals, ≥3 independent sources, concrete cost or frequency stated | hand off to idea-validation |
 
 Independent sources matter: one person repeating themselves counts once.
