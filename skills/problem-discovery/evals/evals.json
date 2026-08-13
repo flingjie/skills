@@ -1,0 +1,58 @@
+{
+  "skill_name": "problem-discovery",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I found this Reddit comment: 'Every time my agent gets stuck in a loop I have to manually inspect dozens of tool calls to figure out where it went wrong. Took me 3 hours last night.' Mine this signal.",
+      "expected_output": "Extracts complaint ('manually inspect dozens of tool calls'), trigger ('agent gets stuck in a loop'), current_behavior ('manual inspection'), cost ('3 hours'). Separates FACT (stated behavior/cost) from ASSUMPTION (no leap to 'they need a debugging platform'). Creates one cluster, confidence weak.",
+      "files": [],
+      "assertions": [
+        {"name": "Extracts complaint/trigger/behavior/cost", "description": "All four fields present and grounded in the text"},
+        {"name": "Separates fact from assumption", "description": "No solution/need leap presented as fact; any 'they need X' is labeled assumption"},
+        {"name": "Creates one cluster with weak confidence", "description": "Single signal, single source → confidence weak, next_action keep mining"}
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Signal A: 'Agent keeps looping and I have to trace tool calls manually — we need an observability tool.' Signal B: 'My agent reran three times and I still can't see the execution state — considering a debugger.' Mine both.",
+      "expected_output": "Merges A and B into ONE cluster (job=debug agent execution, friction=can't see root cause) despite A mentioning observability tool and B mentioning debugger. Confidence medium (2 signals, 2 sources).",
+      "files": [],
+      "assertions": [
+        {"name": "Merges into one cluster", "description": "Both signals under one cluster id"},
+        {"name": "Matches by job+friction not product words", "description": "Does not split into 'observability' and 'debugger' clusters"},
+        {"name": "Confidence medium", "description": "2 signals, 2 independent sources → medium"}
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Signal A: 'My AI agent can't be debugged when it loops.' Signal B: 'My AI agent is too slow at inference.' Mine both.",
+      "expected_output": "Splits into TWO clusters (A: debug; B: speed) despite both containing 'AI agent'. Different jobs/frictions must not be merged.",
+      "files": [],
+      "assertions": [
+        {"name": "Two clusters", "description": "A and B land in different clusters"},
+        {"name": "Not fooled by shared keyword", "description": "Does not merge just because both mention 'AI agent'"}
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Someone tweeted: 'Every SaaS company needs an AI agent that auto-updates their docs.' Mine this signal.",
+      "expected_output": "Flags the product/market claim as ASSUMPTION, not fact. No concrete complaint/trigger/behavior/cost can be extracted from a solution assertion. Marks low-signal and notes missing specificity.",
+      "files": [],
+      "assertions": [
+        {"name": "Solution claim flagged as assumption", "description": "'needs an AI agent' is labeled assumption, never written as fact"},
+        {"name": "No invented evidence", "description": "Does not fabricate a complaint/trigger/cost that isn't in the text"}
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Append this signal to the existing cluster 'agent-loop-debugging' (already has 2 signals from 2 independent sources): 'Third dev this week: wasted half a day tracing a loop in production.' Mine it.",
+      "expected_output": "Appends to the existing cluster, signal_count 3, independent_sources 3, cost ('half a day') now stated → confidence flips to strong, next_action becomes 'hand off to idea-validation'.",
+      "files": [],
+      "assertions": [
+        {"name": "Appends to existing cluster", "description": "Does not create a new cluster; existing id is reused"},
+        {"name": "Confidence strong + handoff", "description": "3 signals, 3 sources, concrete cost → strong, next_action = hand off"},
+        {"name": "State reflects the append", "description": "state/problem_clusters.json reflects the appended signal and updated confidence"}
+      ]
+    }
+  ]
+}
