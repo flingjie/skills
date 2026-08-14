@@ -1,0 +1,59 @@
+{
+  "skill_name": "job-discovery",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "用户说：'I need better monitoring for my AI agents.' Mine the Job from this.",
+      "expected_output": "Does NOT treat 'better monitoring' as the Job. Notes it's a feature request/solution language. Extracts whatever behavior is present (almost none) and flags the absence of behavior as a gap. Job hypothesis is deferred or low-confidence, not fabricated.",
+      "files": [],
+      "assertions": [
+        {"name": "Feature request not treated as a Job", "description": "Does not output 'Job = monitor agents'; flags 'better monitoring' as solution language, not a Job"},
+        {"name": "No fabricated behavior", "description": "Does not invent a timeline, frequency, or cost not present in the one-line input"},
+        {"name": "Missing evidence flagged", "description": "Reports that the input has no behavioral evidence"}
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "访谈片段：'昨天我的 Agent 跑了两个小时，最后发现是 Context 里一个参数传错了，我最后只能重新跑。' Mine it.",
+      "expected_output": "Extracts FACT (agent ran 2 hours, param wrong, reran). Reconstructs a partial timeline (trigger = agent failure; current workaround = rerun). Marks frequency, previous solutions, willingness to pay as Unknown — does NOT invent them.",
+      "files": [],
+      "assertions": [
+        {"name": "FACT vs INFERENCE separated", "description": "Stated facts labeled FACT; any inference (e.g. 'root cause hard to trace') labeled INFERENCE, not FACT"},
+        {"name": "Missing elements marked Unknown", "description": "Frequency, prior solutions, payment are listed Unknown, not fabricated"},
+        {"name": "Timeline partial but honest", "description": "Reconstructs what's known; Missing Story Elements lists the gaps"}
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "一条 tweet：'Every SaaS company needs an AI agent that auto-updates their docs.' Mine it.",
+      "expected_output": "The product/market claim is labeled HYPOTHESIS, never FACT. No behavioral evidence is extractable from a solution assertion. Report states the Job cannot be reconstructed from this source alone.",
+      "files": [],
+      "assertions": [
+        {"name": "Solution/market claim = HYPOTHESIS", "description": "'needs an AI agent' labeled HYPOTHESIS, not FACT"},
+        {"name": "No Job fabricated", "description": "Does not invent a Job from a solution assertion; says the Job is not reconstructable from this source"}
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "'我一直要盯着 Agent，很烦。' Mine it — note the ambiguity.",
+      "expected_output": "Generates MULTIPLE Job hypotheses (know abnormal state / reduce supervision cost / intervene before failure / maintain control), not a single overconfident answer. Marks the emotional Job (control) as supported by '很烦'.",
+      "files": [],
+      "assertions": [
+        {"name": "Multiple Job hypotheses", "description": "Outputs more than one Job hypothesis, not a single answer"},
+        {"name": "Emotional Job identified", "description": "Identifies a control/anxiety emotional Job supported by the frustration"}
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Analyze the four forces for this source: 'I built a timeout + Slack notification because manually watching the agent was eating my day, but I'm worried an automated tool would false-positive and I'd miss real failures.'",
+      "expected_output": "Four forces, each tied to Evidence IDs: Push (manual watching eats the day), Pull (none clearly stated — user built their own), Habit (manual workflow), Anxiety (false positives, missing real failures). Pull may be empty — reported honestly. Opportunity map marks unknowns honestly.",
+      "files": [],
+      "assertions": [
+        {"name": "Four forces present", "description": "Push/Pull/Habit/Anxiety all present, each with a statement"},
+        {"name": "Forces tied to evidence", "description": "Each force statement references evidence ids; empty pull is explicit, not omitted"},
+        {"name": "Anxiety captured", "description": "False-positive / miss-real-failure concern captured under Anxiety"},
+        {"name": "No invented signals", "description": "Frequency/payment marked Unknown, not invented"}
+      ]
+    }
+  ]
+}
