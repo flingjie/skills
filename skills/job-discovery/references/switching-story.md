@@ -2,7 +2,7 @@
 
 Reconstruct the user's timeline before you abstract to a Job. The point is the story — what actually happened — not your summary of it.
 
-## The seven-step timeline
+## The eight-step timeline
 
 For each step, record what the source reveals, and mark it **Known**, **Unknown**, or **Assumed**.
 

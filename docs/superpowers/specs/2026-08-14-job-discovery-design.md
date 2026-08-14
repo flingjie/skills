@@ -100,7 +100,7 @@ HYPOTHESIS is never presented as FACT.
 
 ### Stage 2 — Story Reconstruction
 
-Seven-step timeline; missing elements are marked, never invented:
+Eight-step timeline; missing elements are marked, never invented:
 
 ```
 Context → Previous Situation → Trigger → First Thought → Search → Attempts
@@ -189,7 +189,7 @@ job-discovery/
 ├── SKILL.md                       # 12 core rules + 6-stage pipeline + output format + anti-patterns + handoff
 ├── references/
 │   ├── evidence-taxonomy.md       # evidence schema + types + FACT/INFERENCE/HYPOTHESIS
-│   ├── switching-story.md         # 7-step timeline + Known/Unknown/Assumed
+│   ├── switching-story.md         # 8-step timeline + Known/Unknown/Assumed
 │   ├── forces-of-progress.md      # four forces + evidence traceability
 │   ├── job-formulation.md         # When/I want/So I can + 4 Job classes
 │   └── discovery-report.md        # report template (incl. interview-followup section)
