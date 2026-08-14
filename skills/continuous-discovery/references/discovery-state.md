@@ -36,6 +36,7 @@ The persistent source of truth is `state/discovery_state.json`. Load it at the s
 
 - `goal` — the desired outcome; `null` until set.
 - `opportunities[]` — each has `id` (O-NNN), `statement`, `evidence` (refs to upstream evidence ids), `confidence` (`low`|`medium`|`high`), and nested `solutions[]`.
+- `opportunities[].solutions[]` — each has `id` (S-NNN), `name`, and nested `assumptions[]`.
 - `solutions[].assumptions[]` — each has `id` (A-NNN), `type` (`value`|`usability`|`adoption`|`business`), `statement`, and `status` (`unvalidated`|`validated`|`invalidated`).
 - `experiments[]` — each has `id` (EXP-NNN), `assumption` (A-id), `method`, `status` (`designed`|`running`|`done`), and optionally `result`.
 - `learnings[]` — one entry per completed experiment.
