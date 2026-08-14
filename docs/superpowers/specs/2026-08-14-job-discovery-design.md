@@ -117,10 +117,18 @@ Four forces, each tied to Evidence IDs:
 
 ```yaml
 forces:
-  push:     { statement: "Manual monitoring consumes attention.", evidence: [E1, E2] }
-  pull:     { statement: "Automatic anomaly detection.", evidence: [E3] }
-  habit:    { statement: "Developer is used to manually checking logs.", evidence: [E1] }
-  anxiety:  { statement: "Automatic monitoring may produce false positives.", evidence: [] }
+  push:
+    - statement: "Manual monitoring consumes attention."
+      evidence: [E1, E2]
+  pull:
+    - statement: "Automatic anomaly detection."
+      evidence: [E3]
+  habit:
+    - statement: "Developer is used to manually checking logs."
+      evidence: [E1]
+  anxiety:
+    - statement: "Automatic monitoring may produce false positives."
+      evidence: []
 ```
 
 `anxiety.evidence` may be empty (the user didn't say), but must be explicit. Force

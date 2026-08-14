@@ -106,4 +106,4 @@ Evidence: E1, E2, E4 — Confidence: [high | medium | low]
 
 Current hypothesis: [one sentence]
 
-**Do not build yet / Ready for validation / Strong opportunity signal**
+**Keep mining / Ready for validation / Strong signal — validate first**
