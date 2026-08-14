@@ -1,0 +1,56 @@
+{
+  "skill_name": "continuous-discovery",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "我想做一个 Agent Debug 工具。帮我 discovery。",
+      "expected_output": "Does not jump to a solution. Notes 'Agent Debug 工具' is a solution, not an opportunity; abstracts to the underlying opportunity (e.g. 开发者缺少快速定位失败原因的能力) before generating solutions.",
+      "files": [],
+      "assertions": [
+        {"name": "Not solution-first", "description": "Does not treat 'Agent Debug 工具' as the opportunity; abstracts to an opportunity first"},
+        {"name": "Opportunity before solutions", "description": "Writes an opportunity statement before any solution"}
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Opportunity: Agent 开发者缺少快速定位 execution failure 的能力。帮我展开。",
+      "expected_output": "Generates ≥3 path-distinct solutions (e.g. Execution Replay, Failure Analyzer, AI Debugger), NOT cosmetic variants of one idea (no Replay v1/v2/v3).",
+      "files": [],
+      "assertions": [
+        {"name": "At least 3 solutions", "description": "≥3 solutions under the opportunity"},
+        {"name": "Path-distinct", "description": "Solutions are genuinely different mechanisms, not version variants"}
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Solution: Execution Replay。帮我拆假设。",
+      "expected_output": "Extracts assumptions across all four classes (value/usability/adoption/business), not just value.",
+      "files": [],
+      "assertions": [
+        {"name": "Four classes covered", "description": "Assumptions span value, usability, adoption, business — not value-only"},
+        {"name": "Assumptions are falsifiable", "description": "Each assumption is a specific claim an experiment could test"}
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "假设：A1 Replay 能帮助定位问题；A2 用户愿意付费；A3 用户能理解 Replay 界面。哪个最该先验证？",
+      "expected_output": "Identifies A1 (Replay 能帮助定位) as the riskiest — if false, the whole Replay solution collapses — rather than A2 (payment, testable later) or A3 (usability, cheaper to test). Chooses by cost-of-being-wrong, not ease-of-testing.",
+      "files": [],
+      "assertions": [
+        {"name": "Riskiest = highest cost if false", "description": "Picks the assumption whose falsity kills the solution (A1), not the easiest to test"},
+        {"name": "Reasoning given", "description": "Explains why A1 over A2/A3"}
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "实验结果：4/5 用户看懂了 Replay，但 3/5 说他们真正需要的是快速定位失败原因而不是回放本身，2/5 更喜欢直接看日志。",
+      "expected_output": "Records a learning (Replay 有价值但用户真正要的是快速定位失败); updates the opportunity confidence rather than discarding it; sets next_question = 诊断时哪些信息最有用. Does NOT declare the opportunity dead.",
+      "files": [],
+      "assertions": [
+        {"name": "Learning recorded", "description": "Records a learning with result/conclusion/next_question"},
+        {"name": "Opportunity not discarded", "description": "Updates opportunity confidence rather than removing it (solution≠opportunity)"},
+        {"name": "Next question generated", "description": "Produces the next question to test"}
+      ]
+    }
+  ]
+}
