@@ -1,0 +1,52 @@
+{
+  "skill_name": "weekly-review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "做一下周复盘。",
+      "expected_output": "Reads state/reflection_store.json for the past 7 days of daily signals and forms preliminary observations. Does NOT open with a task-count question (这周做了什么/完成了多少).",
+      "files": ["state/reflection_store.json"],
+      "assertions": [
+        {"name": "Reads the signal store", "description": "Aggregates daily-review days[] before asking, if present"},
+        {"name": "Pattern-focused not task-count", "description": "Seeks patterns, not a count of completed tasks"}
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "这周我做了很多事：写了3个方案、开了5个会、修复了2个bug。",
+      "expected_output": "Acknowledges the list, then pushes past it toward patterns: 什么事反复消耗你？什么问题反复出现？ Does NOT stop at the task list.",
+      "files": [],
+      "assertions": [
+        {"name": "Goes beyond task list to patterns", "description": "Probes for recurring patterns, not just more tasks"}
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "我发现自己这周每天早上都很高效，下午3点后基本没状态。",
+      "expected_output": "Detects an energy pattern (早上高效/下午低效) and asks what to add or reduce next week.",
+      "files": [],
+      "assertions": [
+        {"name": "Detects energy pattern", "description": "Recognizes the gain/drain shape and asks the add/reduce question"}
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "我想下周做完10件事。",
+      "expected_output": "Does NOT accept 10 goals. Designs exactly three decisions: One Thing, One Improvement, One Thing to Stop.",
+      "files": [],
+      "assertions": [
+        {"name": "Three decisions not ten goals", "description": "Outputs one_thing, one_improvement, stop_doing — no more"}
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "这周最大的问题是总是被临时打断。",
+      "expected_output": "Checks whether it repeats (这个问题以前也出现过吗？), marks it as a repeating_issue, and surfaces it in the Weekly Insight.",
+      "files": [],
+      "assertions": [
+        {"name": "Flags repeating problem", "description": "Records repeating_issue with frequency/suspected_pattern"},
+        {"name": "Surfaces in insight", "description": "The insight names the real problem, not just the symptom"}
+      ]
+    }
+  ]
+}
