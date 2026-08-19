@@ -1,0 +1,53 @@
+{
+  "skill_name": "daily-review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "帮我复盘一下今天。",
+      "expected_output": "Asks ONE question at a time, starting with the events question (今天有哪些值得记录的事情？). Does NOT dump all five questions at once.",
+      "files": [],
+      "assertions": [
+        {"name": "One question at a time", "description": "Asks a single opening question, not a list of five"},
+        {"name": "Starts with events", "description": "Begins with what happened, not energy or adjustment"}
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "今天完成了 VLM 审校方案设计，设计 Agent 架构很有感觉，但排查环境很烦。我觉得我最近状态不好，是不是该换工作了？",
+      "expected_output": "Captures the signals (event=方案设计, gain=Agent 架构, drain=排查环境) and moves on. Does NOT turn into career therapy, deep analysis, or problem-solving.",
+      "files": [],
+      "assertions": [
+        {"name": "Captures signal not therapy", "description": "Records signals without launching career/life analysis"},
+        {"name": "Does not solve deeply", "description": "Does not attempt to fix the 换工作 question — stays light"}
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "今天没什么特别的，也没做好的。",
+      "expected_output": "Does not accept the empty win. Gently probes: 有没有哪怕一件小事，比以前做得更好？",
+      "files": [],
+      "assertions": [
+        {"name": "Probes for a small win", "description": "Asks for one small improvement rather than accepting 'nothing'"}
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "（用户已依次回答完五个问题）好的，都记录完了。",
+      "expected_output": "Produces the 5-field structured output (events/energy_gain/energy_drain/win/lesson/adjustment) and saves it to state/reflection_store.json under days[], not weeks[].",
+      "files": ["state/reflection_store.json"],
+      "assertions": [
+        {"name": "Structured output", "description": "Output has all five fields: events, energy_gain, energy_drain, win, lesson, adjustment"},
+        {"name": "Writes to days[]", "description": "Appends the day entry to days[], never weeks[]"}
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "帮我制定明天的详细计划。",
+      "expected_output": "Redirects: the daily review only sets ONE adjustment for tomorrow. Does NOT produce a multi-step plan.",
+      "files": [],
+      "assertions": [
+        {"name": "One adjustment only", "description": "Sets a single adjustment, does not build a plan or task list"}
+      ]
+    }
+  ]
+}
