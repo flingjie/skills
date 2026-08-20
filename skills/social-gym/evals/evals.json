@@ -1,0 +1,168 @@
+{
+  "skill_name": "social-gym",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "/social-gym （无 profile，全新用户，首次调用）",
+      "expected_output": "直接开始 diagnostic 第一个场景（Enter the Conversation），用一个共享环境线索开场并等待用户回应。不先讲理论、不要求先配置偏好、不列出所有模式。",
+      "files": [],
+      "assertions": [
+        {"name": "Starts diagnostic scenario 1", "description": "Opens directly with Enter the Conversation, not a menu or lecture"},
+        {"name": "No theory lecture", "description": "Does not deliver an explanation of conversation theory before the first prompt"},
+        {"name": "Waits for a turn", "description": "Ends its turn with a single scenario cue, not a wall of questions"}
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "/social-gym （state fixture：profile 已存在，threading 阶段最低且最新 3 条观察中有 2 条重复 counter `questionnaire_mode`，needs_reconfirmation=true）",
+      "expected_output": "选择一个证据支撑的训练 focus = threading，宣布一个行为目标，并映射到合适模式（Follow-up Drill / Story Mining / Full Conversation）。",
+      "files": [],
+      "assertions": [
+        {"name": "One focus selected", "description": "Announces exactly one training focus backed by profile evidence"},
+        {"name": "Focus is threading", "description": "Chooses threading given the repeated counter pattern"},
+        {"name": "Mapped to compatible mode", "description": "Uses Follow-up Drill / Story Mining / Full Conversation, not an unrelated mode"}
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "/social-gym full",
+      "expected_output": "直接进入 Full Conversation，生成一个真实场景并等待用户回应，不进入 diagnostic、不选自适应 focus。",
+      "files": [],
+      "assertions": [
+        {"name": "Full Conversation directly", "description": "Starts Full Conversation, bypassing diagnostic and adaptive routing"},
+        {"name": "No focus announcement", "description": "Does not announce a competency focus as if in adaptive mode"}
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "/social-gym story （state fixture：profile 最高优先级弱点是 Recovery & Exit）",
+      "expected_output": "保持 Story Mining 为活跃模式。场景与难度可使用相关 profile 上下文，但不改路由到 Conversation Recovery，也不要求用户改练 recovery。",
+      "files": [],
+      "assertions": [
+        {"name": "Explicit mode wins", "description": "Story Mining remains active despite recovery being the top weakness"},
+        {"name": "No redirect", "description": "Does not steer the user to Conversation Recovery"}
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "/social-gym full （开始 Full Conversation）",
+      "expected_output": "只推进一个回合，用隐藏人物卡的信息分层渐进披露，不在开场一次性倾倒人物背景、兴趣、经历、情绪层；然后等待用户回应。",
+      "files": [],
+      "assertions": [
+        {"name": "One turn then wait", "description": "Advances exactly one turn and stops for the user"},
+        {"name": "No info dump", "description": "Does not reveal surface/fact/experience/motivation/story/emotion layers at the start"}
+      ]
+    },
+    {
+      "id": 6,
+      "prompt": "（Full Conversation 进行中）用户说：“我在想怎么让团队更愿意用 AI。”",
+      "expected_output": "保持入戏，以人物身份自然回应并继续对话，不逐轮评价或表扬用户的这一句，不进入教学。",
+      "files": [],
+      "assertions": [
+        {"name": "Stays in character", "description": "Responds as the persona, not as a coach"},
+        {"name": "No turn-by-turn grading", "description": "Does not grade or praise the user's turn during Full Conversation"}
+      ]
+    },
+    {
+      "id": 7,
+      "prompt": "/social-gym recovery （难度 Hard / Expert）",
+      "expected_output": "难度通过交互约束体现——短回答、有限注意力、选择性投入、打断或信号歧义；不通过让模拟人物变得敌意或攻击用户来制造难度。",
+      "files": [],
+      "assertions": [
+        {"name": "Constraints not hostility", "description": "Uses interaction constraints, not a hostile persona"},
+        {"name": "Behavioral difficulty", "description": "Difficulty shows up as behavior (short answers, distraction, ambiguity), not as abuse"}
+      ]
+    },
+    {
+      "id": 8,
+      "prompt": "（对话中对方已明显失去兴趣）",
+      "expected_output": "允许对话自然结束或体面离场，不强行把每次聊天延续成成功结果；也不因对方想结束而变得刻薄。",
+      "files": [],
+      "assertions": [
+        {"name": "Natural ending allowed", "description": "Permits the conversation to end when interest is absent"},
+        {"name": "No forced success", "description": "Does not force the scene to a successful connection"}
+      ]
+    },
+    {
+      "id": 9,
+      "prompt": "/social-gym intro （Self Introduction 单轮 drill）",
+      "expected_output": "只对实际被引出并观察到的能力产生证据（如 Self-introduction & Hook），不因本次会话的 focus 或模式，就给未表现的能力凭空记证据。",
+      "files": [],
+      "assertions": [
+        {"name": "Only elicited competencies", "description": "Records evidence only for competencies actually observed"},
+        {"name": "No fabricated evidence", "description": "Does not infer evidence for competencies the mode did not expose"}
+      ]
+    },
+    {
+      "id": 10,
+      "prompt": "/social-gym full （用户在本会话中只做对了一次 thread_followed，无其它历史证据）",
+      "expected_output": "复盘时该能力最多到 Emerging（或保持不变），绝不因这一次成功就设为 Reliable。",
+      "files": [],
+      "assertions": [
+        {"name": "Single success not Reliable", "description": "Does not set Reliable from one positive observation"},
+        {"name": "Stage explainable", "description": "Resulting stage is consistent with the deterministic transition thresholds"}
+      ]
+    },
+    {
+      "id": 11,
+      "prompt": "（state fixture：threading 有 5 条 attempt=first 且 assistance=none 的正向证据，跨 3 个情境类别和 2 个模式；最新 3 条中 2 条正向）",
+      "expected_output": "将 threading 从 Developing 推进到 Reliable，并在复盘时说明依据（跨模式、跨情境、独立无辅助）。",
+      "files": [],
+      "assertions": [
+        {"name": "Stage advances", "description": "Promotes threading to Reliable when all thresholds are met"},
+        {"name": "Reasoning cited", "description": "Explains the transition in terms of evidence, not a score"}
+      ]
+    },
+    {
+      "id": 12,
+      "prompt": "（复盘时）一条 counter 证据（一次 question_jumping），且该能力此前是 Developing。",
+      "expected_output": "阶段不降低，保持 Developing。仅当最新 3 条观察中出现 2 条相同 behavior_code 的 counter 时，才设 needs_reconfirmation=true。",
+      "files": [],
+      "assertions": [
+        {"name": "Single counter no downgrade", "description": "One counter item does not lower the stage"},
+        {"name": "Reconfirmation threshold", "description": "needs_reconfirmation only after two same-code counters in the latest three observations"}
+      ]
+    },
+    {
+      "id": 13,
+      "prompt": "（同一节点 retry 后，用户在教练给出 strategy_hint 下改进）",
+      "expected_output": "把 retry 证据标为 attempt=retry、assistance=strategy_hint。成功 retry 是正向学习证据，但不计为 first-attempt 独立证据；原始 miss 仍保留为证据。",
+      "files": [],
+      "assertions": [
+        {"name": "Attempt metadata preserved", "description": "Retry evidence is marked attempt=retry"},
+        {"name": "Assistance preserved", "description": "The hint level (strategy_hint) is attached to the evidence"},
+        {"name": "Retry not first-attempt", "description": "A successful retry does not count as first-attempt independent evidence"}
+      ]
+    },
+    {
+      "id": 14,
+      "prompt": "（会话结束后）用户查看进度",
+      "expected_output": "写入 state/social_gym_profile.json 的内容只含行为摘要与证据，不含完整对话 transcript。展示阶段、最近支持证据、reconfirmation 标记与当前 focus，但不暴露隐藏人物卡。",
+      "files": ["state/social_gym_profile.json"],
+      "assertions": [
+        {"name": "No transcript persisted", "description": "Persisted state contains behavioral summaries, not full role-play transcripts"},
+        {"name": "Progress shown without persona", "description": "Shows stages/evidence/focus but never the hidden persona card"}
+      ]
+    },
+    {
+      "id": 15,
+      "prompt": "（state fixture：state/social_gym_profile.json 是损坏或不受支持的 JSON）",
+      "expected_output": "不静默覆盖该文件。说明进度无法加载，询问用户是否重建 profile；用户拒绝时在内存中继续练习，不写文件。",
+      "files": [],
+      "assertions": [
+        {"name": "Not silently overwritten", "description": "Does not overwrite the malformed file without asking"},
+        {"name": "Rebuild is a choice", "description": "Asks whether to rebuild rather than auto-rebuilding"}
+      ]
+    },
+    {
+      "id": 16,
+      "prompt": "（会话中途用户离开，未完成 retry）",
+      "expected_output": "只保存行为已支持的观察并标记 session interrupted；不生成完整会话结论，不编造完整评分或阶段提升。",
+      "files": [],
+      "assertions": [
+        {"name": "No fabricated conclusion", "description": "Does not produce a complete-session conclusion for an interrupted session"},
+        {"name": "Partial evidence only", "description": "Saves only observations supported by actual behavior"}
+      ]
+    }
+  ]
+}
