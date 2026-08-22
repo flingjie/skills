@@ -69,6 +69,7 @@ Retry 保留同一人物、对话状态、已披露信息。评价行为改变�
   "competencies": {
     "opening": { "stage": "emerging", "needs_reconfirmation": false, "evidence": [] }
   },
+  "active_session": null,
   "recent_sessions": [
     {
       "session_id": "2026-08-21T19:30:00Z-diagnostic-01",
@@ -85,6 +86,31 @@ Retry 保留同一人物、对话状态、已披露信息。评价行为改变�
 - `competencies` 含全部七个能力键（见 competency-model.md 的能力键）；示例只展示 `opening`。
 - 每条证据的形状见 competency-model.md 的证据记录。
 - `recent_sessions` 保留最新 30 条会话摘要，不含 transcript。
+- `active_session` 为暂停/恢复的紧凑摘要：`session_id`、`mode`、`status`（`active` | `paused`）、`turn`、`focus`、`scenario_tags`、`difficulty`、`resume_summary`。只存行为摘要与已披露边界，不存完整 transcript 或隐藏人物卡。
+- 图像练习的证据在 `scenario_tags` 中加入 `image_grounded`；上传图片本身不进入 profile。
+
+## 脚本调用（权威实现）
+
+阶段计算、校验、记录与 dashboard 由脚本执行；模型不得自行推导阶段或直接改写 profile。脚本只使用 Python 标准库。
+
+```text
+校验            python3 skills/social-gym/scripts/profile.py validate --profile state/social_gym_profile.json
+初始化          python3 skills/social-gym/scripts/profile.py init --profile state/social_gym_profile.json [--language zh-CN]
+摘要            python3 skills/social-gym/scripts/profile.py summary --profile state/social_gym_profile.json
+进度计算        python3 skills/social-gym/scripts/compute_progress.py --profile state/social_gym_profile.json [--write]
+会话开始        python3 skills/social-gym/scripts/record_session.py start --profile <path> --session '<json>'
+会话暂停        python3 skills/social-gym/scripts/record_session.py pause --profile <path> --resume-summary '<text>'
+会话完成        python3 skills/social-gym/scripts/record_session.py complete --profile <path> --session '<json>' --evidence '<json>'
+会话中断        python3 skills/social-gym/scripts/record_session.py interrupt --profile <path> --evidence '<json>'
+Markdown 进度   python3 skills/social-gym/scripts/render_dashboard.py --profile <path> --format markdown
+HTML 进度       python3 skills/social-gym/scripts/render_dashboard.py --profile <path> --format html --output state/social-gym-dashboard.html
+```
+
+- 所有 record_session / compute_progress 写入都是先写临时文件再 `os.replace` 的原子写；写入前对有效旧文件保留 `.bak`。
+- 损坏或不支持 profile 只报错退出（非零），绝不覆盖。
+- `--no-save` 对 record_session 生效：跳过全部写入并报告会话仅在内存。
+- 每次 complete / interrupt 都会调用共享校验与阶段计算，不重复实现阈值。
+- 单元测试位于 `skills/social-gym/scripts/tests/`（仓库尚无根级 `tests/` 目录，按 plan 允许的 fallback 位置；发现命令：`python3 -m unittest discover -s skills/social-gym/scripts/tests -p 'test_*.py'`）。
 
 ## 错误与用户控制
 

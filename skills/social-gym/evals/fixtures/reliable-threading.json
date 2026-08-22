@@ -1,0 +1,232 @@
+{
+  "schema_version": 1,
+  "created_at": "2026-08-22T08:00:00Z",
+  "updated_at": "2026-08-22T09:00:00Z",
+  "preferences": {
+    "goals": [],
+    "scenario_tags": [
+      "meetup"
+    ],
+    "language": "zh-CN"
+  },
+  "diagnostic": {
+    "status": "complete",
+    "completed_at": "2026-08-22T08:20:00Z"
+  },
+  "current_focus": "threading",
+  "competencies": {
+    "opening": {
+      "stage": "unassessed",
+      "needs_reconfirmation": false,
+      "evidence": []
+    },
+    "listening_reaction": {
+      "stage": "unassessed",
+      "needs_reconfirmation": false,
+      "evidence": []
+    },
+    "threading": {
+      "stage": "unassessed",
+      "needs_reconfirmation": false,
+      "evidence": [
+        {
+          "session_id": "r1",
+          "observed_at": "2026-07-01T10:00:00Z",
+          "competency": "threading",
+          "polarity": "positive",
+          "behavior_code": "thread_followed",
+          "behavior": "thread_followed observed in followup_drill",
+          "mode": "followup_drill",
+          "difficulty": "normal",
+          "scenario_tags": [
+            "setting:meetup",
+            "relationship:stranger",
+            "constraint:open"
+          ],
+          "attempt": "first",
+          "assistance": "none"
+        },
+        {
+          "session_id": "r2",
+          "observed_at": "2026-07-02T10:00:00Z",
+          "competency": "threading",
+          "polarity": "positive",
+          "behavior_code": "wording_connected",
+          "behavior": "wording_connected observed in followup_drill",
+          "mode": "followup_drill",
+          "difficulty": "normal",
+          "scenario_tags": [
+            "setting:meetup",
+            "relationship:stranger",
+            "constraint:open"
+          ],
+          "attempt": "first",
+          "assistance": "none"
+        },
+        {
+          "session_id": "r3",
+          "observed_at": "2026-07-03T10:00:00Z",
+          "competency": "threading",
+          "polarity": "positive",
+          "behavior_code": "thread_followed",
+          "behavior": "thread_followed observed in story_mining",
+          "mode": "story_mining",
+          "difficulty": "normal",
+          "scenario_tags": [
+            "setting:learning",
+            "relationship:peer",
+            "constraint:open"
+          ],
+          "attempt": "first",
+          "assistance": "none"
+        },
+        {
+          "session_id": "r4",
+          "observed_at": "2026-07-04T10:00:00Z",
+          "competency": "threading",
+          "polarity": "positive",
+          "behavior_code": "thread_switched_well",
+          "behavior": "thread_switched_well observed in story_mining",
+          "mode": "story_mining",
+          "difficulty": "normal",
+          "scenario_tags": [
+            "setting:learning",
+            "relationship:peer",
+            "constraint:open"
+          ],
+          "attempt": "first",
+          "assistance": "none"
+        },
+        {
+          "session_id": "r5",
+          "observed_at": "2026-07-05T10:00:00Z",
+          "competency": "threading",
+          "polarity": "positive",
+          "behavior_code": "wording_connected",
+          "behavior": "wording_connected observed in full_conversation",
+          "mode": "full_conversation",
+          "difficulty": "normal",
+          "scenario_tags": [
+            "setting:work",
+            "relationship:colleague",
+            "constraint:distracted"
+          ],
+          "attempt": "first",
+          "assistance": "none"
+        },
+        {
+          "session_id": "r6",
+          "observed_at": "2026-07-06T10:00:00Z",
+          "competency": "threading",
+          "polarity": "positive",
+          "behavior_code": "thread_followed",
+          "behavior": "thread_followed observed in full_conversation",
+          "mode": "full_conversation",
+          "difficulty": "normal",
+          "scenario_tags": [
+            "setting:work",
+            "relationship:colleague",
+            "constraint:distracted"
+          ],
+          "attempt": "first",
+          "assistance": "none"
+        }
+      ]
+    },
+    "story_development": {
+      "stage": "unassessed",
+      "needs_reconfirmation": false,
+      "evidence": []
+    },
+    "reciprocity": {
+      "stage": "unassessed",
+      "needs_reconfirmation": false,
+      "evidence": []
+    },
+    "self_introduction": {
+      "stage": "unassessed",
+      "needs_reconfirmation": false,
+      "evidence": []
+    },
+    "recovery_exit": {
+      "stage": "unassessed",
+      "needs_reconfirmation": false,
+      "evidence": []
+    }
+  },
+  "recent_sessions": [
+    {
+      "session_id": "r1",
+      "mode": "followup_drill",
+      "difficulty": "normal",
+      "scenario_tags": [
+        "setting:meetup",
+        "relationship:stranger",
+        "constraint:open"
+      ],
+      "focus": "threading",
+      "result": "complete"
+    },
+    {
+      "session_id": "r2",
+      "mode": "followup_drill",
+      "difficulty": "normal",
+      "scenario_tags": [
+        "setting:meetup",
+        "relationship:stranger",
+        "constraint:open"
+      ],
+      "focus": "threading",
+      "result": "complete"
+    },
+    {
+      "session_id": "r3",
+      "mode": "story_mining",
+      "difficulty": "normal",
+      "scenario_tags": [
+        "setting:learning",
+        "relationship:peer",
+        "constraint:open"
+      ],
+      "focus": "threading",
+      "result": "complete"
+    },
+    {
+      "session_id": "r4",
+      "mode": "story_mining",
+      "difficulty": "normal",
+      "scenario_tags": [
+        "setting:learning",
+        "relationship:peer",
+        "constraint:open"
+      ],
+      "focus": "threading",
+      "result": "complete"
+    },
+    {
+      "session_id": "r5",
+      "mode": "full_conversation",
+      "difficulty": "normal",
+      "scenario_tags": [
+        "setting:work",
+        "relationship:colleague",
+        "constraint:distracted"
+      ],
+      "focus": "threading",
+      "result": "complete"
+    },
+    {
+      "session_id": "r6",
+      "mode": "full_conversation",
+      "difficulty": "normal",
+      "scenario_tags": [
+        "setting:work",
+        "relationship:colleague",
+        "constraint:distracted"
+      ],
+      "focus": "threading",
+      "result": "complete"
+    }
+  ],
+  "active_session": null
+}

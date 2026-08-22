@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Social Gym Progress</title>
+<style>
+:root { color-scheme: light; }
+* { box-sizing: border-box; }
+body {
+  margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #f4f2ea; color: #1f2a26; line-height: 1.5;
+}
+header {
+  padding: 28px 32px 20px; background: #2f6b5e; color: #fff;
+}
+header h1 { margin: 0 0 6px; font-size: 24px; }
+header p { margin: 2px 0; opacity: 0.92; font-size: 14px; }
+main { max-width: 960px; margin: 0 auto; padding: 24px 20px 48px; }
+section { margin-bottom: 28px; }
+h2 { font-size: 18px; margin: 0 0 12px; color: #2f6b5e; }
+.sg-competency {
+  background: #fff; border: 1px solid #d8d4c6; border-radius: 8px;
+  padding: 14px 16px; margin-bottom: 12px;
+}
+.sg-competency-head {
+  display: flex; align-items: baseline; gap: 12px; justify-content: space-between;
+}
+.sg-competency h3 { margin: 0; font-size: 15px; }
+.sg-reconfirmation {
+  color: #8a4b0b; background: #fdecc8; border-radius: 999px;
+  padding: 2px 10px; font-size: 12px;
+}
+.sg-ladder {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 12px 0 8px;
+}
+.sg-step {
+  border: 1px solid #d8d4c6; border-radius: 6px; padding: 6px 4px;
+  text-align: center; font-size: 12px; color: #5c665f; background: #fbfaf5;
+}
+.sg-step.done { background: #dcece6; border-color: #9cbfb2; color: #24584b; }
+.sg-step.current { background: #2f6b5e; border-color: #2f6b5e; color: #fff; }
+.sg-meta { margin: 0; font-size: 13px; color: #55615b; }
+table {
+  width: 100%; border-collapse: collapse; background: #fff;
+  border: 1px solid #d8d4c6; border-radius: 8px; overflow: hidden;
+}
+th, td { padding: 8px 10px; text-align: left; font-size: 13px; border-bottom: 1px solid #e4e0d2; }
+th { background: #e8ece8; color: #2f3b35; }
+ul { margin: 0; padding-left: 22px; }
+li { margin: 4px 0; font-size: 14px; }
+.sg-summary {
+  background: #fff; border: 1px solid #d8d4c6; border-radius: 8px;
+  padding: 12px 16px; font-size: 14px;
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>Social Gym Progress</h1>
+  <p>{{SG_HEADER}}</p>
+</header>
+<main>
+  <section>
+    <h2>Stage Summary</h2>
+    <div class="sg-summary">{{SG_SUMMARY}}</div>
+  </section>
+  <section>
+    <h2>Competency Ladders</h2>
+    {{SG_LADDERS}}
+  </section>
+  <section>
+    <h2>Latest Supporting Evidence</h2>
+    {{SG_EVIDENCE}}
+  </section>
+  <section>
+    <h2>Scenario Coverage (Latest 5 Sessions)</h2>
+    <p>{{SG_COVERAGE}}</p>
+  </section>
+  <section>
+    <h2>Requirements for the Next Stage</h2>
+    <ul>{{SG_REQUIREMENTS}}</ul>
+  </section>
+</main>
+</body>
+</html>

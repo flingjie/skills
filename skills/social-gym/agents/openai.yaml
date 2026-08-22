@@ -1,0 +1,8 @@
+interface:
+  display_name: "Social Gym"
+  short_description: "通过真实对话模拟训练开场、接话、追问、自我介绍和救场"
+  icon_small: "./assets/icon-small.svg"
+  brand_color: "#2F6B5E"
+  default_prompt: "开始一次适合我当前水平的社交对话训练。"
+policy:
+  allow_implicit_invocation: true
